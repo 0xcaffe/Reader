@@ -12,7 +12,7 @@ std::string Reader::read(int value)
 {
 	if (value < MIN || value > MAX)
 	{
-		throw std::invalid_argument("Invalid argument");
+		throw std::invalid_argument("Invalid argument. Value must be within range <0;99999>");
 	}
 
 	bool hasThousands = value >= 1000;

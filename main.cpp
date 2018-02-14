@@ -24,7 +24,7 @@ int main()
 	Reader reader;
 	int value;
 	
-	do
+	for (;;)
 	{
 		value = parseInt();	
 		if (value < 0) 
@@ -33,8 +33,7 @@ int main()
 		}
 
 		std::cout << reader.read(value) << std::endl;
-
-	} while (value >= 0);
+	}
 
 	return 0;
 }
