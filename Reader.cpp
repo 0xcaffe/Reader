@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Reader.h"
 
 Reader::Reader()
@@ -9,12 +8,11 @@ Reader::~Reader()
 {
 }
 
-bool Reader::read(int value)
+std::string Reader::read(int value)
 {
 	if (value < MIN || value > MAX)
 	{
-		std::cout << "Provided value is outside range <0; 99999>" << std::endl;
-		return false;
+		throw std::invalid_argument("Invalid argument");
 	}
 
 	bool hasThousands = value >= 1000;
@@ -27,19 +25,23 @@ bool Reader::read(int value)
 
 	if (hasThousands)
 	{
-		output = readThousand(value) + SPACE;
+		output = readThousand(value);
 	}
 	
 	if (hasHundreds)
 	{
-		output += readHundred(value) + SPACE;
+		if (hasThousands)
+		{
+			output += SPACE;
+		}
+		output += readHundred(value);
 	}
 
 	if (hasTens)
 	{
 		if (hasHundreds || hasThousands)
 		{
-			output += AND + SPACE;
+			output += SPACE + AND + SPACE;
 		}
 
 		if (overTweanty)
@@ -66,19 +68,22 @@ bool Reader::read(int value)
 		}
 	}
 	
-	std::cout << output << std::endl;
-	return true;
+	return output;
 }
 
 std::string Reader::readDigit(int value)
 {
+	if (value < 0)
+	{
+		throw std::invalid_argument("Invalid argument");
+	}
 	return DIGITS[value % 10];
 }
 
 std::string Reader::readTeen(int value)
 {
 	int teen = value % 100;
-	if (teen < 10 || teen > 20)
+	if (teen < 10 || teen > 19)
 	{
 		throw std::invalid_argument("Invalid argument");
 	}
@@ -87,6 +92,10 @@ std::string Reader::readTeen(int value)
 
 std::string Reader::readTen(int value)
 {
+	if (value < 0)
+	{
+		throw std::invalid_argument("Invalid argument");
+	}
 	bool hasDigit = (value % 10) != 0;
 	if (hasDigit)
 	{
@@ -105,6 +114,10 @@ std::string Reader::readHundred(int value)
 
 std::string Reader::readThousand(int value)
 {
+	if (value < 0)
+	{
+		throw std::invalid_argument("Invalid argument");
+	}
 	int thousands = value / 1000 % 100;
 	std::string thousandsString;
 	if (thousands >= 10)

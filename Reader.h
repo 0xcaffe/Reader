@@ -1,6 +1,6 @@
 #pragma once
-#include <iostream>
 #include <string>
+#include "ReaderTest.h"
 
 class Reader
 {
@@ -22,10 +22,12 @@ class Reader
 	std::string readHundred(int value);
 	std::string readThousand(int value);
 
+	friend class ReaderTest;
+
 public:
 
 	Reader();
 	~Reader();
-	bool read(int value);
+	std::string read(int value);
 };
 
