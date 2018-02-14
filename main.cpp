@@ -19,7 +19,14 @@ int main()
 {
 	Reader reader;
 	int value = parseInt();	
-	std::cout << reader.read(value) << std::endl;
+	try 
+	{
+		std::cout << reader.read(value) << std::endl;
+	}
+	catch (const std::invalid_argument& exception)
+	{
+		std::cout << exception.what() << std::endl;
+	}	
 	return 0;
 }
 

@@ -2,3 +2,7 @@ settings.json
 *.o
 readerTest
 reader
+reader.exe
+readerTest.exe
+.vs/
+bin/
